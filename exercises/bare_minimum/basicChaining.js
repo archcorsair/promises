@@ -15,7 +15,7 @@ var https = require('https');
 
 
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
-  function readFirstLineAsync(readFilePath) {
+  var readFirstLineAsync = function readFirstLineAsync(readFilePath) {
     return new Promise(function(resolve, reject) {
       fs.readFile(readFilePath, function(error, data) {
         if (error) {
@@ -26,9 +26,9 @@ var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
         resolve(data);
       });
     });
-  }
+  };
 
-  function getFromGitHubAsync(profileName) {
+  var getFromGitHubAsync = function getFromGitHubAsync(profileName) {
     return new Promise(function(resolve, reject) {
       https.get('https://api.github.com/users/' + profileName, function(response) {
         var result = [];
@@ -44,9 +44,9 @@ var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
         });
       });
     });
-  }
+  };
 
-  function writeProfileToFile(data) {
+  var writeProfileToFile = function writeProfileToFile(data) {
     return new Promise(function(resolve, reject) {
       fs.writeFile(writeFilePath, data, function(e) {
         if (e) {
@@ -55,12 +55,12 @@ var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
         resolve('success!');
       });
     });
-  }
+  };
 
-  readFirstLineAsync(readFilePath).then(getFromGitHubAsync).then(writeProfileToFile).then(console.log);
+  return readFirstLineAsync(readFilePath).then(getFromGitHubAsync).then(writeProfileToFile);
 };
 
-fetchProfileAndWriteToFile('/Users/student/username.txt','/Users/student/profile.txt');
+fetchProfileAndWriteToFile('/Users/student/username.txt', '/Users/student/profile.txt');
 //
 // // Export these functions so we can test them
 module.exports = {
