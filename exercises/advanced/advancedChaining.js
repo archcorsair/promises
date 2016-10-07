@@ -28,12 +28,12 @@ var accessToken = '3UAGQg6hWndhfzjFu1xPaRBItPivz8';
 var searchCommonTagsFromGitHubProfiles = function(githubHandles) {
   return Promise.all(githubHandles.map(handle => (lib.getGitHubProfile(handle))))
     .then((profiles) => {
-      console.log(profiles);
+      // console.log(profiles);
       return profiles.map(profile => (profile.avatarUrl));
     })
     .then(
       function(bagels) {
-        console.log('What are teh baglez?', bagels);
+        // console.log('What are teh baglez?', bagels);
         return lib.authenticateImageTagger().then(lib.tagImage.bind(null, bagels));
       }
     ).then(lib.getIntersection);
