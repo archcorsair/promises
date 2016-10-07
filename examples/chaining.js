@@ -23,6 +23,7 @@ var addNewUserToDatabaseAsync = function(user) {
     });
 };
 
+
 addNewUserToDatabaseAsync({ name: 'Dan', password: 'chickennuggets' })
   .then(function(savedUser) {
     console.log('All done!');
@@ -31,3 +32,5 @@ addNewUserToDatabaseAsync({ name: 'Dan', password: 'chickennuggets' })
     // Will catch any promise rejections or thrown errors in the chain!
     console.log('Oops, caught an error: ', err.message);
   });
+
+console.log('this will show up!');
